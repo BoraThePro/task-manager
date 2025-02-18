@@ -1,23 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Task List</h1>
+    <h1 class="text-2xl font-bold mb-4">Task List</h1>
 
-    <a href="{{ route('tasks.create') }}">Create New Task</a>
+    <a href="{{ route('tasks.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">+ Add Task</a>
 
-    @foreach ($tasks as $task)
-        <div>
-            <strong>{{ $task->title }}</strong>
-            <p>{{ $task->description }}</p>
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        @foreach ($tasks as $task)
+            <div class="p-4 bg-white shadow-md rounded-lg border">
+                <h2 class="text-lg font-bold">{{ $task->title }}</h2>
+                <p class="text-gray-600">{{ $task->description }}</p>
+                
+                <div class="mt-4 flex justify-between items-center">
+                    <a href="{{ route('tasks.edit', $task) }}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">Edit</a>
 
-            <a href="{{ route('tasks.edit', $task) }}">Edit</a>
-
-            <form action="{{ route('tasks.destroy', $task) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Delete</button>
-            </form>
-        </div>
-        <hr>
-    @endforeach
+                    <form action="{{ route('tasks.destroy', $task) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Delete</button>
+                    </form>
+                </div>
+            </div>
+        @endforeach
+    </div>
 @endsection
