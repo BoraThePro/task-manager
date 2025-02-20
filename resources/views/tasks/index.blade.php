@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- Motivational Quote Section -->
+    <div class="bg-gray-200 p-4 rounded-lg shadow-md text-center mb-6">
+        <h2 class="text-xl font-semibold text-gray-700">Motivational Quote of the Day</h2>
+        <p class="text-lg italic text-gray-900">"{{ $quote['content'] }}"</p>
+        <p class="text-gray-600">- {{ $quote['author'] }}</p>
+    </div>
+
     <h1 class="text-2xl font-bold mb-4">Task List</h1>
 
     <a href="{{ route('tasks.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">+ Add Task</a>

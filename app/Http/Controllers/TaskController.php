@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Http;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
     public function index(){
         $tasks = Task::all();
-        return view('tasks.index', compact('tasks'));
+
+        $response = Http::withOptions(['verify' => false])->get('https://api.quotable.io/random');
+        $quote = $response->json();
+
+        return view('tasks.index', compact('tasks', 'quote'));
     }
 
     public function create(){
